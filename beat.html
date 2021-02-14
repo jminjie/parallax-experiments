@@ -1,0 +1,99 @@
+<html>
+<body>
+    <h1>Beat box</h1>
+      <script type="text/javascript" src="https://unpkg.com/tone"></script>
+        <button id="play-button">Enable audio</button>
+        <h2>
+        <ul id="messages">
+            <li>CLICK</li>
+            <li>THE</li>
+            <li>"ENABLE AUDIO"</li>
+            <li>BUTTON</li>
+            <li>AND</li>
+            <li>THEN</li>
+            <li>SCROLL</li>
+            <li>DOWN</li>
+            <li>SLOWLY</li>
+            <li>AND</li>
+            <li>STEADILY</li>
+            <li>TO</li>
+            <li>PLAY</li>
+            <li>A</li>
+            <li>BEAT</li>
+            <li>AT</li>
+            <li>YOUR</li>
+            <li>OWN</li>
+            <li>PACE</li>
+            <li>...</li>
+        </ul>
+        <h2>
+<script>
+var sampler;
+console.log("changeMySampler");
+url = "https://jminjie.github.io/samples/drum/"
+fetch(url + 'config.json')
+    .then(response => response.json())
+    .then(function (mapping) {
+        sampler = new Tone.Sampler({
+            urls: mapping,
+            baseUrl: url,
+        }).toDestination();
+        //sound = Sound.from( mySampler, mySampler.context ).analyze(256);
+    });
+
+last_position = window.scrollY;
+document.addEventListener('scroll', function(e) {
+    scroll_position = window.scrollY;
+    // 0 bass drum
+    // 100 snare
+    // 50, 150 cymbal
+    if (pastPosition(0)) {
+        console.log("BOOTS", last_position, scroll_position);
+        appendToList("BOOTS");
+        sampler.triggerAttackRelease("C3", Tone.context.currentTime);
+    } else if (pastPosition(100)) {
+        console.log("CATS", last_position, scroll_position);
+        appendToList("CATS");
+        sampler.triggerAttackRelease("C4", Tone.context.currentTime);
+    } else if (pastPosition(50) || pastPosition(150)) {
+        console.log("AND", last_position, scroll_position);
+        appendToList("AND");
+        sampler.triggerAttackRelease("C5", Tone.context.currentTime);
+    }
+    last_position = scroll_position;
+});
+function pastPosition(pos) {
+    if (pos == 0) {
+        // handle wrap around case (e.g. last%200 is 199 and cur%200 is 1)
+        return Math.floor(scroll_position/200) > Math.floor(last_position/200);
+    }
+    return (last_position)%200 <= pos && scroll_position%200 > pos
+            && !(Math.floor(scroll_position/200) < Math.floor(last_position/200));
+}
+
+function appendToList(message) {
+    var list = document.getElementById('messages');
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(message));
+    list.appendChild(entry);
+}
+</script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
